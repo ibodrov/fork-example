@@ -9,12 +9,16 @@ flows:
         - orgName: { label: "Organization", type: string }
         - clusterId: { label: "Cluster ID", type: string }
 
+    # note, that the target project must allow starting processes
+    # using payload archives (see the project's settings page)
+
     - task: concord
       in:
-        action: fork
+        action: start
         org: ${cfgForm.orgName}
         project: concord-k8s-builder # must exist beforehand
         entryPoint: deploy
+        payload: "." # use the current directory as the process' payload
         arguments:
           clusterId: ${cfgForm.clusterId}
 
