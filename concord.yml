@@ -6,8 +6,8 @@ flows:
     - form: cfgForm
       yield: true
       fields:
-        - orgName: { type: string }
-        - clusterId: { type: string }
+        - orgName: { label: "Organization", type: string }
+        - clusterId: { label: "Cluster ID", type: string }
 
     - task: concord
       in:
