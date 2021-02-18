@@ -17,12 +17,6 @@ flows:
         action: start
         org: ${cfgForm.orgName}
         project: concord-k8s-builder # must exist beforehand
-        entryPoint: deploy
-        payload: "." # use the current directory as the process' payload
+        payload: deploy # use the "deploy" directory as the process' payload
         arguments:
           clusterId: ${cfgForm.clusterId}
-
-  deploy:
-    - log: |
-        org: ${projectInfo.orgName}
-        clusterId: ${clusterId}
