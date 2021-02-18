@@ -1,0 +1,24 @@
+configuration:
+  runtime: concord-v2
+
+flows:
+  default:
+    - form: cfgForm
+      yield: true
+      fields:
+        - orgName: { type: string }
+        - clusterId: { type: string }
+
+    - task: concord
+      in:
+        action: fork
+        org: ${cfgForm.orgName}
+        project: concord-k8s-builder # must exist beforehand
+        entryPoint: deploy
+        arguments:
+          clusterId: ${cfgForm.clusterId}
+
+  deploy:
+    - log: |
+        org: ${projectInfo.orgName}
+        clusterId: ${clusterId}
