@@ -15,8 +15,14 @@ flows:
     - task: concord
       in:
         action: start
+        sync: true
         org: ${cfgForm.orgName}
-        project: concord-k8s-builder # must exist beforehand
-        payload: deploy # use the "deploy" directory as the process' payload
+        project: concord-k8s-builder  # must exist beforehand
+        payload: deploy               # use the "deploy" directory as the process' payload
         arguments:
           clusterId: ${cfgForm.clusterId}
+        outVars:                      # in the concord-v2 runtime only top-level variables can be returned as "outVars"
+          - "result"
+      out: externalResult
+
+    - log: ${externalResult.result}

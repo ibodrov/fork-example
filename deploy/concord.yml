@@ -6,3 +6,12 @@ flows:
     - log: |
         org: ${projectInfo.orgName}
         clusterId: ${clusterId}
+
+    # only top-level variables can be returned as outVars
+    - call: anotherFlow
+      out:
+        - result
+
+  anotherFlow:
+    - set:
+        result: "Hello, ${projectInfo.orgName}/${clusterId}"
